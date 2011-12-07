@@ -1,2 +1,31 @@
 h1= title
-p Welcome to #{title}
+a(href='/adm/login') Adm login
+form(id='base_search', method='post', action='/base_search')
+  fieldset(id='inputs')
+    p
+      label(for='title') Title:
+        input(id='title', name='title', type='text')
+    p
+      label(for='category') Category:
+        input(id='category', name='category', type='text')
+    p
+      label(for='press') Press:
+        input(id='press', name='press', type='text')
+    p
+      label(for='year0') Start Year:
+        input(id='year0', name='year0', type='text')
+      label(for='year1') End Year:
+        input(id='year1', name='year1', type='text')
+    p
+      label(for='author') Author:
+        input(id='author', name='author', type='text')
+    p
+      label Order By:
+        select(name='order')
+          option(value='title') Title
+          option(value='category') Category
+          option(value='press') Press
+          option(value='year') Year
+          option(value='author') Author
+    p
+      input(id='submit', type='submit', value='Search')
