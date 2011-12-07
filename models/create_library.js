@@ -56,14 +56,12 @@ var create_table_record = "CREATE TABLE " + TABLE_RECORD +
     "adm_id INT(11), " +
     "PRIMARY KEY (id))"
 
-    /*
 client.query(create_table_book, function(err){
     if (err){ throw err;}
 });
 client.query(create_table_card, function(err){
     if (err){ throw err;}
 });
-*/
 client.query(create_table_adm, function(err){
     if (err){ throw err;}
 });
