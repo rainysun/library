@@ -1,0 +1,11 @@
+h1 Login
+form(id='adm_login', method='post', action='/adm/login')
+  fieldset(id='inputs')
+    p
+      label(for='adm_id') ID:
+        input(id='adm_id', name='adm_id', type='text')
+    p
+      label(for='pwd') Password:
+        input(id='pwd', name='pwd', type='text')
+    p
+        input(type='submit', id='submit', value='Login')
