@@ -1,0 +1,30 @@
+h1= title
+a(href='/adm') -> Adm Panel
+form(id='book_in', method='post', action='/adm/book_in')
+  fieldset(id='inputs')
+    p
+      label(for='book_no') Book_no:
+        input(id='book_no', name='book_no', type='text')
+    p
+      label(for='category') Category:
+        input(id='category', name='category', type='text')
+    p
+      label(for='title') Title:
+        input(id='title', name='title', type='text')
+    p
+      label(for='press') Press:
+        input(id='press', name='press', type='text')
+    p
+      label(for='year') Year:
+        input(id='year', name='year', type='text')
+    p
+      label(for='author') Author:
+        input(id='author', name='author', type='text')
+    p
+      label(for='price') Price:
+        input(id='price', name='price', type='text')
+    p
+      label(for='total') Total:
+        input(id='total', name='total', type='text')
+    p
+      input(id='submit', type='submit', value='Search')

@@ -25,9 +25,9 @@ var create_table_book = "create table " + TABLE_BOOK +
     "category VARCHAR(255), " +
     "title VARCHAR(255), " +
     "press VARCHAR(255), " +
-    "year VARCHAR(5), " +
+    "year INT(5), " +
     "author VARCHAR(25), " +
-    "price FLOAT, " +
+    "price DECIMAL(6, 2), " +
     "total INT(11), " +
     "stock INT(11), " +
     "PRIMARY KEY (id))"
