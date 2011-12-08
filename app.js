@@ -3,7 +3,7 @@
  * Module dependencies.
  */
 
-var express = require('express')
+var express = require('express');
 
 var app = module.exports = express.createServer();
 
@@ -12,13 +12,15 @@ var app = module.exports = express.createServer();
 app.configure(function(){
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
+  app.use(express.cookieSessions({secret: 'rainy'}));
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(app.router);
   app.use(express.static(__dirname + '/public'));
 //session & cookie
-  app.use(express.cookieParser());
-  app.use(express.session({secret: 'rainy'}));
+  //app.use(express.cookieParser());
+  //app.use(express.SessionCookie, {secret: 'rainy'});
+  //app.use(express.session({secret: 'rainy'}));
 });
 
 app.configure('development', function(){
