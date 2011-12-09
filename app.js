@@ -4,8 +4,11 @@
  */
 
 var express = require('express');
+var form    = require('connect-form');
 
-var app = module.exports = express.createServer();
+var app = module.exports = express.createServer(
+	form({keepExtensions: true})
+	);
 
 // Configuration
 

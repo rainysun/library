@@ -1,5 +1,8 @@
 var check = require('../models/check');
 var book  = require('../models/book');
+var fs    = require('fs');
+var form  = require('connect-form');
+
 module.exports = function(app){
     app.get('/adm/login', function(req, res){
 	res.render('login', {title: 'Library', layout: 'layout'});
@@ -27,7 +30,7 @@ module.exports = function(app){
 	log(req, res, 'adm');
     });
     app.get('/adm/book_in', function(req, res){
-	log(req, res, 'book_in')
+	log(req, res, 'book_in');
     });
     app.post('/adm/book_in', function(req, res){  // <== Bug here :)
 	var body = req.body;
@@ -39,6 +42,22 @@ module.exports = function(app){
 	});
 
     });
+    app.get('/adm/books_in', function(req, res){
+	log(req, res, 'books_in');
+    });
+    app.post('/adm/books_in', function(req, res){ // <= Bug here too :)
+	console.log('about to parse');
+	req.form.complete(function(err, fields, files){
+	    if (err){
+		throw err;
+	    }
+	    //fs.renameSync(files.book_list.path);
+	    console.log(files.book_list.path);
+	    res.redirect('/adm');
+	});
+    });
+
+    //render
     function log(req, res, render){
 	if (req.session && req.session['sta'] === 'yes'){
 	    res.render(render, {title: 'Library', adm_id: req.session.adm_id, layout:'layout'});
