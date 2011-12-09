@@ -1,5 +1,6 @@
 var check = require('../models/check');
 var book  = require('../models/book');
+var adm   = require('../models/adm');
 module.exports = function(app){
     app.get('/adm/login', function(req, res){
 	res.render('login', {title: 'Library', layout: 'layout'});
@@ -38,6 +39,17 @@ module.exports = function(app){
 	    res.redirect('/adm')
 	});
 
+    });
+    app.get('/adm/borrow', function(req, res){
+	log(req, res, 'borrow')
+    });
+    app.post('/adm/borrow', function(req, res){ // <== Bug here :)
+	var record  = req.body;
+	adm.borrow(record, function call(err){
+	    if(err){
+	    throw err;
+	    };
+	});
     });
     function log(req, res, render){
 	if (req.session && req.session['sta'] === 'yes'){
