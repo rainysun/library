@@ -48,11 +48,9 @@ module.exports = function(app){
     app.post('/adm/books_in', function(req, res){ // <= Bug here too :)
 	console.log('about to parse');
 	req.form.complete(function(err, fields, files){
-	    if (err){
-		throw err;
-	    }
+	    console.log('parsed');
 	    //fs.renameSync(files.book_list.path);
-	    console.log(files.book_list.path);
+	    //console.log(files.book_list.path);
 	    res.redirect('/adm');
 	});
     });
