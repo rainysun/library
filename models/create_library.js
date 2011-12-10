@@ -54,6 +54,7 @@ var create_table_record = "CREATE TABLE " + TABLE_RECORD +
     "borrow_date DATETIME, " +
     "return_date DATETIME, " +
     "adm_id INT(11), " +
+    "book_no INT(11), " +
     "PRIMARY KEY (id))"
 
 client.query(create_table_book, function(err){

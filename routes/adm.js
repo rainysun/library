@@ -1,12 +1,10 @@
 var check = require('../models/check');
 var book  = require('../models/book');
-<<<<<<< HEAD
+var adm   = require('../models/adm');
+var search = require('../models/search');
 var fs    = require('fs');
 var form  = require('connect-form');
 
-=======
-var adm   = require('../models/adm');
->>>>>>> borrow
 module.exports = function(app){
     app.get('/adm/login', function(req, res){
 	res.render('login', {title: 'Library', layout: 'layout'});
@@ -17,7 +15,6 @@ module.exports = function(app){
 	check.is_adm(adm_id, pwd, function callback(chc, adm_id){
 	    if (chc === 'yes'){
 		req.session = {'sta': 'yes', 'adm_id': adm_id};
-		//res.render('adm', {title: 'Library', adm_id: req.session.adm_id, layout: 'layout'});
 		res.redirect('/adm');
 		res.end();
 	    }else{
@@ -46,7 +43,8 @@ module.exports = function(app){
 	});
 
     });
-<<<<<<< HEAD
+
+/*
     app.get('/adm/books_in', function(req, res){
 	log(req, res, 'books_in');
     });
@@ -59,21 +57,41 @@ module.exports = function(app){
 	    res.redirect('/adm');
 	});
     });
+*/
 
-    //render
-=======
     app.get('/adm/borrow', function(req, res){
 	log(req, res, 'borrow')
     });
     app.post('/adm/borrow', function(req, res){ // <== Bug here :)
-	var record  = req.body;
-	adm.borrow(record, function call(err){
-	    if(err){
-	    throw err;
+	var card_no = req.body.card_no;
+	var book_no = req.body.book_no;
+	var adm_id  = req.session.adm_id;
+	
+	adm.card_exist(card_no, function call(check){
+	    if(check === 'no'){
+		res.send('no card');
 	    };
+	    adm.book_stock(book_no, function call(stock){
+		if(stock === 0){
+		    adm.get_return_date(book_no, function call(results){
+			res.send(results);
+		    });
+		}else{
+		    adm.book_borrowed(book_no);
+		    adm.borrow_record(card_no, book_no, adm_id, function call(err){
+			if(err){throw err};
+		    });
+		    var sel = {'book_no': book_no, 'order': 'title'};
+		    search.search(sel, function call(results, fields){
+			res.send(results);
+		    });
+		};
+	    });
 	});
+
     });
->>>>>>> borrow
+
+    //render
     function log(req, res, render){
 	if (req.session && req.session['sta'] === 'yes'){
 	    res.render(render, {title: 'Library', adm_id: req.session.adm_id, layout:'layout'});
