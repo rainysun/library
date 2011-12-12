@@ -55,6 +55,8 @@ var create_table_record = "CREATE TABLE " + TABLE_RECORD +
     "return_date DATETIME, " +
     "adm_id INT(11), " +
     "book_no INT(11), " +
+    "returned INT(1) DEFAULT 0, " +
+    "r_adm_id INT(11), " +
     "PRIMARY KEY (id))"
 
 client.query(create_table_book, function(err){

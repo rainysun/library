@@ -1,0 +1,12 @@
+h1 Return a book
+a(href='/adm') -> Adm Panel
+form(id='return', method='post', action='/adm/return')
+  fieldset(id='inputs')
+    p
+      label(for='card_no') Card No. :
+      input(id='card_no', name='card_no', type='text')
+    p
+      label(for='book_no') Book No. :
+      input(id='book_no', name='book_no', type='text')
+    p
+      input(id='submit', type='submit', value='Return')

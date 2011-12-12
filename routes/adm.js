@@ -44,10 +44,10 @@ module.exports = function(app){
 
     });
 
-/*
     app.get('/adm/books_in', function(req, res){
 	log(req, res, 'books_in');
     });
+/*
     app.post('/adm/books_in', function(req, res){ // <= Bug here too :)
 	console.log('about to parse');
 	req.form.complete(function(err, fields, files){
@@ -60,7 +60,7 @@ module.exports = function(app){
 */
 
     app.get('/adm/borrow', function(req, res){
-	log(req, res, 'borrow')
+	log(req, res, 'borrow');
     });
     app.post('/adm/borrow', function(req, res){ // <== Bug here :)
 	var card_no = req.body.card_no;
@@ -72,6 +72,7 @@ module.exports = function(app){
 		res.send('no card');
 	    };
 	    adm.book_stock(book_no, function call(stock){
+		if(stock === 'null'){res.send(null);}
 		if(stock === 0){
 		    adm.get_return_date(book_no, function call(results){
 			res.send(results);
@@ -82,13 +83,33 @@ module.exports = function(app){
 			if(err){throw err};
 		    });
 		    var sel = {'book_no': book_no, 'order': 'title'};
-		    search.search(sel, function call(results, fields){
-			res.send(results);
-		    });
 		};
 	    });
+	    adm.get_borrowed_books(card_no, function call(result){
+		res.send(result);
+	    });
+	
 	});
 
+    });
+
+    app.get('/adm/return', function(req, res){
+	log(req, res, 'return');
+    });
+    app.post('/adm/return', function(req, res){
+	var card_no = req.body.card_no;
+	var book_no = req.body.book_no;
+	var adm_id  = req.session.adm_id;
+	adm.card_exist(card_no, function call(check){
+	    if(check === 'no'){
+		res.send('no card');
+	    };
+	adm.book_returned(book_no);
+	adm.return_record(card_no, book_no, adm_id);
+	adm.get_borrowed_books(card_no, function call(result){
+	    res.send(result);
+	});
+	 
     });
 
     //render
