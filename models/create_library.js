@@ -34,7 +34,6 @@ var create_table_book = "create table " + TABLE_BOOK +
 
 var create_table_card = "create table " + TABLE_CARD +
     "(id INT(11) AUTO_INCREMENT, " +
-    "card_no INT(11), " +
     "name VARCHAR(25), " +
     "unit VARCHAR(255), " +
     "category VARCHAR(25), " +

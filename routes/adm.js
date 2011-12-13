@@ -83,10 +83,13 @@ module.exports = function(app){
 			if(err){throw err};
 		    });
 		    var sel = {'book_no': book_no, 'order': 'title'};
+			console.log('record added');
 		};
 	    });
-	    adm.get_borrowed_books(card_no, function call(result){
-		res.send(result);
+	    adm.get_borrowed_books(card_no, function call(results){
+		console.log('get borrowed books');
+		console.log(results);
+		res.send(results);
 	    });
 	
 	});
@@ -111,6 +114,24 @@ module.exports = function(app){
 	});
 	 
     });
+	});
+	app.get('/adm/new_card', function(req, res){
+		res.render('new_card', {title: 'Library', layout: 'layout'});
+	});
+	app.post('/adm/new_card', function(req, res){
+		var info = req.body;
+		adm.new_card(info, function call(result){
+			res.send('ok' + result.insertId);
+		});
+	});
+	app.get('/adm/del_card', function(req, res){
+		res.render('del_card', {title: 'Library', layout: 'layout'});
+	});
+	app.post('/adm/del_card', function(req, res){
+		var card_no = req.body.card_no;
+		adm.del_card(card_no, function call(){
+			res.send('ok');
+		});
 	});
 
     //render
