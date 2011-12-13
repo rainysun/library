@@ -12,10 +12,23 @@ module.exports = function(app){
 		sel[i] = sb[i];
 	    }
 	}
+	search.search(sel, function call(results, fields){
+	//res.send(results);
+	res.render('results', {title: 'Library', layout: 'layout', results: results});
+		});
+	//res.render('results', {title: 'Library', layout: 'layout', res: sb});
+		/*
+	var sel = {};
+	for (i in sb){
+	    if (sb[i] != ''){
+		sel[i] = sb[i];
+	    }
+	}
 
 	search.search(sel, function call(results, fields){
 	    res.send(results);
 	});
+	*/
 
     });
 };
