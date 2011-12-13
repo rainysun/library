@@ -1,24 +1,25 @@
 h1 Search Result:
 a(href='/') ->Back Home
-table
-  tr
-    td Book No. |
-    td Title |
-    td Author |
-    td Category |
-    td Press |
-    td Year |
-    td Price |
-    td Total |
-    td Stock |
-  each re in results
+fieldset
+  table
     tr
-      td#{re.book_no}
-      td#{re.title}
-      td#{re.author}
-      td#{re.category}
-      td#{re.press}
-      td#{re.year}
-      td#{re.price}
-      td#{re.total}
-      td#{re.stock}
+      td Book No. |
+      td Title |
+      td Author |
+      td Category |
+      td Press |
+      td Year |
+      td Price |
+      td Total |
+      td Stock |
+    each re in results
+      tr
+        td#{re.book_no}
+        td#{re.title}
+        td#{re.author}
+        td#{re.category}
+        td#{re.press}
+        td#{re.year}
+        td#{re.price}
+        td#{re.total}
+        td#{re.stock}
