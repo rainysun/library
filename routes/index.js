@@ -6,6 +6,9 @@ module.exports = function(app){
     });
     app.post('/base_search', function(req, res){
 	var sb = req.body;
+
+	res.render('results', {title: 'Library', layout: 'layout', result: sb});
+	/*
 	var sel = {};
 	for (i in sb){
 	    if (sb[i] != ''){
@@ -16,6 +19,7 @@ module.exports = function(app){
 	search.search(sel, function call(results, fields){
 	    res.send(results);
 	});
+	*/
 
     });
 };

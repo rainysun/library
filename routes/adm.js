@@ -90,7 +90,6 @@ module.exports = function(app){
 	    });
 	
 	});
-
     });
 
     app.get('/adm/return', function(req, res){
@@ -104,12 +103,13 @@ module.exports = function(app){
 	    if(check === 'no'){
 		res.send('no card');
 	    };
-	adm.book_returned(book_no);
-	adm.return_record(card_no, book_no, adm_id);
-	adm.get_borrowed_books(card_no, function call(result){
-	    res.send(result);
-	});
+	    adm.book_returned(book_no);
+	    adm.return_record(card_no, book_no, adm_id);
+	    adm.get_borrowed_books(card_no, function call(result){
+		res.send(result);
+	    });
 	 
+	});
     });
 
     //render
