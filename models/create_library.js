@@ -6,7 +6,7 @@ var TABLE_ADM    = "adm";
 var TABLE_RECORD = "record";
 
 var client = mysql.createClient({
-    user: 'rainy',
+    user: 'root',
     password: 'rainy',
 });
 

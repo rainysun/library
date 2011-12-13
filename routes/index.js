@@ -10,12 +10,11 @@ module.exports = function(app){
 	var empty = true;
 	for (i in sb){
 		sel[i] = sb[i];
-	    }
-	}
+	};
 	search.search(sel, function call(results, fields){
 	//res.send(results);
-	res.render('results', {title: 'Library', layout: 'layout', results: results});
-		});
+	    res.render('results', {title: 'Library', layout: 'layout', results: results});
+	});
 	//res.render('results', {title: 'Library', layout: 'layout', res: sb});
 		/*
 	var sel = {};

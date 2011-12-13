@@ -1,8 +1,8 @@
 var db_opt = {
     host: 'localhost',
     port: 3306,
-    user: 'rainy',
-	password: 'rainy',
+    user: 'root',
+    password: 'rainy',
     database: 'library'
 };
 
