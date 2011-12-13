@@ -4,16 +4,25 @@ function search(sel, call){
     for (i in sel){
 	if(i === 'order'){
 	    sql = sql.slice(0, -4) + 'order by ' + 
-		'"' + sel['order'] + '"';
+		sel['order'];
+	}else if(i === 'year0'){
+	    sql = sql + ' year >= ' + sel[i] + 
+		' and ';
+	}else if(i === 'year1'){
+		sql = sql + 'year <= ' +  sel[i] + 
+		' and ';
 	}else{
-	    sql = sql + i + ' = ' + 
-		'"'+ sel[i] +'"' +
+		sql = sql + i + ' = ' +
+		'"' + sel[i] + '"' +
 		' and ';
 	};
-    };
+	};
+	console.log(sql);
+
 
     db.query(sql, function(err, results, fields){
 	call(results, fields);
+	//call(sql);
     });
 };
 

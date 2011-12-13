@@ -12,9 +12,9 @@ module.exports = function(app){
     app.post('/adm/login', function(req, res){
 	var adm_id = req.body.adm_id;
 	var pwd    = req.body.pwd;
-	check.is_adm(adm_id, pwd, function callback(chc, adm_id){
+	check.is_adm(adm_id, pwd, function callback(chc, result){
 	    if (chc === 'yes'){
-		req.session = {'sta': 'yes', 'adm_id': adm_id};
+		req.session = {'sta': 'yes', 'adm_id': adm_id, 'adm_name': result[0].name};
 		res.redirect('/adm');
 		res.end();
 	    }else{
@@ -83,10 +83,13 @@ module.exports = function(app){
 			if(err){throw err};
 		    });
 		    var sel = {'book_no': book_no, 'order': 'title'};
+			console.log('record added');
 		};
 	    });
-	    adm.get_borrowed_books(card_no, function call(result){
-		res.send(result);
+	    adm.get_borrowed_books(card_no, function call(results){
+		console.log('get borrowed books');
+		console.log(results);
+		res.send(results);
 	    });
 	
 	});
@@ -111,11 +114,30 @@ module.exports = function(app){
 	 
 	});
     });
+	});
+	app.get('/adm/new_card', function(req, res){
+		res.render('new_card', {title: 'Library', layout: 'layout'});
+	});
+	app.post('/adm/new_card', function(req, res){
+		var info = req.body;
+		adm.new_card(info, function call(result){
+			res.send('ok' + result.insertId);
+		});
+	});
+	app.get('/adm/del_card', function(req, res){
+		res.render('del_card', {title: 'Library', layout: 'layout'});
+	});
+	app.post('/adm/del_card', function(req, res){
+		var card_no = req.body.card_no;
+		adm.del_card(card_no, function call(){
+			res.send('ok');
+		});
+	});
 
     //render
     function log(req, res, render){
 	if (req.session && req.session['sta'] === 'yes'){
-	    res.render(render, {title: 'Library', adm_id: req.session.adm_id, layout:'layout'});
+	    res.render(render, {title: 'Library', adm_name: req.session.adm_name, layout:'layout'});
 	}else{
 	    res.redirect('/adm/login');
 	};

@@ -1,7 +1,7 @@
 var db = require('../config').db;
 
 function card_exist(card_no, call){
-    db.query('select * from card where card_no = ' +
+    db.query('select * from card where id = ' +
 	    card_no, function check(err, res){
 		if(err){throw err};
 		var check = res.length === 0 ? 'no' : 'yes';
@@ -49,10 +49,7 @@ function return_record(card_no, book_no, adm_id){
 };
 
 function get_borrowed_books(card_no, call){
-    db.query('select * from book where book_no in (select book_no from record where returned = 0 and card_no = ' + card_no, function callback(err, results){
-	if(err){
-	    throw err;
-	};
+    db.query('select * from book where book_no in (select book_no from record where returned = 0 and card_no = ' + card_no + ')', function callback(err, results, fields){
 	call(results);
     });
 };
@@ -63,6 +60,18 @@ function get_return_date(book_no, call){
 	call(results[0]['return_date']);
     });
 };
+function new_card(info, call){
+	db.query('insert into card set name = ?, unit = ?, category = ?', [
+	info.name, info.unit, info.category], function(err, result){
+		console.log(result);
+		call(result);
+		});
+};
+function del_card(card_no, call){
+	db.query('delete from card where id = ' + card_no, function(err){
+		call();
+	});
+};
 exports.card_exist = card_exist;
 exports.book_stock = book_stock;
 exports.book_borrowed = book_borrowed;
@@ -71,3 +80,5 @@ exports.book_returned = book_returned;
 exports.return_record = return_record;
 exports.get_return_date    = get_return_date;
 exports.get_borrowed_books = get_borrowed_books;
+exports.new_card = new_card;
+exports.del_card = del_card;
