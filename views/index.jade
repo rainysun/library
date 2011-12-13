@@ -1,7 +1,8 @@
 h1= title
-a(href='/adm/login', id='login') Adm login
-form(id='base_search', method='post', action='/base_search')
-  fieldset(id='inputs')
+#href
+  a(href='/adm/login') Adm login
+fieldset(id='inputs')
+  form(id='base_search', method='post', action='/base_search')
     p
       label(for='title') Title:
       input(id='title', name='title', type='text')
@@ -29,3 +30,4 @@ form(id='base_search', method='post', action='/base_search')
         option(value='author') Author
     p
       input(id='submit', type='submit', value='Search')
+      span#error_msg

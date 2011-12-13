@@ -41,5 +41,5 @@ require('./routes/index')(app);
 require('./routes/adm')(app);
 require('./routes/upload')(app);
 
-app.listen(8080);
+app.listen(80);
 console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);

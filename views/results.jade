@@ -1,17 +1,22 @@
-h1 Search Result:
-a(href='/') ->Back Home
+h1= h1
+#href
+  ul
+    li
+      a(href='/') Back Home
+    li
+      a(href='/adm') Adm Panel
 fieldset
-  table
-    tr
-      td Book No. |
-      td Title |
-      td Author |
-      td Category |
-      td Press |
-      td Year |
-      td Price |
-      td Total |
-      td Stock |
+  table#table
+    tr.tr_title
+      td Book No. 
+      td Title 
+      td Author 
+      td Category 
+      td Press 
+      td Year 
+      td Price 
+      td Total 
+      td Stock 
     each re in results
       tr
         td#{re.book_no}

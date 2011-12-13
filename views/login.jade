@@ -1,11 +1,17 @@
 h1 Login
-form(id='adm_login', method='post', action='/adm/login')
-  fieldset(id='inputs')
+#href
+  a(href='/') Back Home
+fieldset(id='inputs')
+  form(id='adm_login', method='post', action='/adm/login')
     p
       label(for='adm_id') ID:
-        input(id='adm_id', name='adm_id', type='text')
+      input(id='adm_id', name='adm_id', type='text', required='required')
+      span
+        *
     p
       label(for='pwd') Password:
-        input(id='pwd', name='pwd', type='text')
+      input(id='pwd', name='pwd', type='password', required='required')
+      span
+        *
     p
-        input(type='submit', id='submit', value='Login')
+      input(type='submit', id='submit', value='Login')

@@ -6,31 +6,14 @@ module.exports = function(app){
     });
     app.post('/base_search', function(req, res){
 	var sb = req.body;
-
-	res.render('results', {title: 'Library', layout: 'layout', result: sb});
-	/*
 	var sel = {};
-	var empty = true;
 	for (i in sb){
+	    if(sb[i] != ''){
 		sel[i] = sb[i];
+	    };
 	};
 	search.search(sel, function call(results, fields){
-	//res.send(results);
-	    res.render('results', {title: 'Library', layout: 'layout', results: results});
+	    res.render('results', {h1: 'Search Result', layout: 'layout', results: results});
 	});
-	//res.render('results', {title: 'Library', layout: 'layout', res: sb});
-		/*
-	var sel = {};
-	for (i in sb){
-	    if (sb[i] != ''){
-		sel[i] = sb[i];
-	    }
-	}
-
-	search.search(sel, function call(results, fields){
-	    res.send(results);
-	});
-	*/
-
     });
 };

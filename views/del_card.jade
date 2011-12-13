@@ -1,9 +1,10 @@
 h1 Del a Card
-a(href='/adm') -> Adm Panel
-form(id='del_card', method='post', action='/adm/del_card')
-  fieldset(id='inputs')
+#href
+  a(href='/adm') Adm Panel
+fieldset(id='inputs')
+  form(id='del_card', method='post', action='/adm/del_card')
     p
       label(for='card_no') Card No. :
-      input(id='card_no', name='card_no', type='text')
+      input(id='card_no', name='card_no', type='text', required='required')
     p
       input(type='submit', id='submit', value='Delete')

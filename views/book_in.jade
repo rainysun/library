@@ -1,30 +1,31 @@
-h1= title
-a(href='/adm') -> Adm Panel
-form(id='book_in', method='post', action='/adm/book_in')
-  fieldset(id='inputs')
+h1 Book In
+#href
+  a(href='/adm') Adm Panel
+fieldset(id='inputs')
+  form(id='book_in', method='post', action='/adm/book_in')
     p
       label(for='book_no') Book_no:
-        input(id='book_no', name='book_no', type='text')
+      input(id='book_no', name='book_no', type='text', required='required')
     p
       label(for='category') Category:
-        input(id='category', name='category', type='text')
+      input(id='category', name='category', type='text', required='required')
     p
       label(for='title') Title:
-        input(id='title', name='title', type='text')
+      input(id='title', name='title', type='text', required='required')
     p
       label(for='press') Press:
-        input(id='press', name='press', type='text')
+      input(id='press', name='press', type='text', required='required')
     p
       label(for='year') Year:
-        input(id='year', name='year', type='text')
+      input(id='year', name='year', type='text', required='required')
     p
       label(for='author') Author:
-        input(id='author', name='author', type='text')
+      input(id='author', name='author', type='text', required='required')
     p
       label(for='price') Price:
-        input(id='price', name='price', type='text')
+      input(id='price', name='price', type='text', required='required')
     p
       label(for='total') Total:
-        input(id='total', name='total', type='text')
+      input(id='total', name='total', type='text', required='required')
     p
-      input(id='submit', type='submit', value='Search')
+      input(id='submit', type='submit', value='Book In')

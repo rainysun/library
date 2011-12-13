@@ -1,9 +1,10 @@
-h1= title
-a(href='/adm') -> Adm Panel
-form(id='books_in', method='post', action='/adm/books_in', enctype="multipart/form-data")
-  fieldset(id='inputs')
+h1 Books In
+#href
+  a(href='/adm') Adm Panel
+fieldset(id='inputs')
+  form(id='books_in', method='post', action='/adm/books_in', enctype="multipart/form-data")
     p
-      label(for='upload') Upload Booklist(*.json):
-        input(id='upload', name='upload', type='file', multiple="multiple")
+      label(for='upload') Upload Booklist:
+      input(id='upload', name='upload', type='file', multiple="multiple")
     p
       input(type='submit', id='submit', value='Upload')

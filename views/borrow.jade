@@ -1,12 +1,13 @@
 h1 Borrow a book
-a(href='/adm') -> Adm Panel
-form(id='borrow', method='post', action='/adm/borrow')
-  fieldset(id='inputs')
+#href
+  a(href='/adm') Adm Panel
+fieldset(id='inputs')
+  form(id='borrow', method='post', action='/adm/borrow')
     p
       label(for='card_no') Card No. :
-      input(id='card_no', name='card_no', type='text')
+      input(id='card_no', name='card_no', type='text', required='required')
     p
       label(for='book_no') Book No. :
-      input(id='book_no', name='book_no', type='text')
+      input(id='book_no', name='book_no', type='text', required='required')
     p
       input(id='submit', type='submit', value='Borrow')

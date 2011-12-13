@@ -1,15 +1,16 @@
 h1 New a Card
-a(href='/adm') -> Adm Panel
-form(id='new_card', method='post', action='/adm/new_card')
-  fieldset(id='inputs')
+#href
+  a(href='/adm') Adm Panel
+fieldset(id='inputs')
+  form(id='new_card', method='post', action='/adm/new_card')
     p
       label(for='name') Name :
-      input(id='name', name='name', type='text')
+      input(id='name', name='name', type='text', required='required')
     p
       label(for='unit') Unit:
-      input(id='unit', name='unit', type='text')
+      input(id='unit', name='unit', type='text', required='required')
     p
       label(for='category') Category:
-      input(id='category', name='category', type='text')
+      input(id='category', name='category', type='text', required='required')
     p
       input(id='submit', type='submit', value='New')

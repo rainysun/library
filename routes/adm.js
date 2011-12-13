@@ -24,8 +24,9 @@ module.exports = function(app){
 	});
     });
     app.get('/adm/logout', function(req, res){
+	//auth(req, res);
 	delete req.session;
-	    res.redirect('/');
+	res.redirect('/');
     });
     app.get('/adm', function(req, res){
 	log(req, res, 'adm');
@@ -34,6 +35,7 @@ module.exports = function(app){
 	log(req, res, 'book_in');
     });
     app.post('/adm/book_in', function(req, res){  // <== Bug here :)
+	auth(req, res);
 	var body = req.body;
 	book.book_in(body, function callback(err){
 	    if (err){
@@ -43,26 +45,14 @@ module.exports = function(app){
 	});
 
     });
-
     app.get('/adm/books_in', function(req, res){
 	log(req, res, 'books_in');
     });
-/*
-    app.post('/adm/books_in', function(req, res){ // <= Bug here too :)
-	console.log('about to parse');
-	req.form.complete(function(err, fields, files){
-	    console.log('parsed');
-	    //fs.renameSync(files.book_list.path);
-	    //console.log(files.book_list.path);
-	    res.redirect('/adm');
-	});
-    });
-*/
-
     app.get('/adm/borrow', function(req, res){
 	log(req, res, 'borrow');
     });
     app.post('/adm/borrow', function(req, res){ // <== Bug here :)
+	auth(req, res);
 	var card_no = req.body.card_no;
 	var book_no = req.body.book_no;
 	var adm_id  = req.session.adm_id;
@@ -88,8 +78,8 @@ module.exports = function(app){
 	    });
 	    adm.get_borrowed_books(card_no, function call(results){
 		console.log('get borrowed books');
-		console.log(results);
-		res.send(results);
+		res.render('results', {layout: 'layout', results: results, h1: 'My Book List'});
+		//res.send(results);
 	    });
 	
 	});
@@ -99,6 +89,7 @@ module.exports = function(app){
 	log(req, res, 'return');
     });
     app.post('/adm/return', function(req, res){
+	auth(req, res);
 	var card_no = req.body.card_no;
 	var book_no = req.body.book_no;
 	var adm_id  = req.session.adm_id;
@@ -108,36 +99,46 @@ module.exports = function(app){
 	    };
 	    adm.book_returned(book_no);
 	    adm.return_record(card_no, book_no, adm_id);
-	    adm.get_borrowed_books(card_no, function call(result){
-		res.send(result);
+	    adm.get_borrowed_books(card_no, function call(results){
+		res.render('results', {layout: 'layout', results: results, h1: 'My Book List'});
 	    });
 	 
 	});
     });
-	});
 	app.get('/adm/new_card', function(req, res){
-		res.render('new_card', {title: 'Library', layout: 'layout'});
+	    auth(req, res);
+	    res.render('new_card', {title: 'Library', layout: 'layout'});
 	});
 	app.post('/adm/new_card', function(req, res){
-		var info = req.body;
-		adm.new_card(info, function call(result){
-			res.send('ok' + result.insertId);
-		});
+	    auth(req, res);
+	    var info = req.body;
+	    adm.new_card(info, function call(result){
+		res.send('ok' + result.insertId);
+	    });
 	});
 	app.get('/adm/del_card', function(req, res){
-		res.render('del_card', {title: 'Library', layout: 'layout'});
+	    auth(req, res);
+	    res.render('del_card', {title: 'Library', layout: 'layout'});
 	});
 	app.post('/adm/del_card', function(req, res){
-		var card_no = req.body.card_no;
-		adm.del_card(card_no, function call(){
-			res.send('ok');
-		});
+	    auth(req, res);
+	    var card_no = req.body.card_no;
+	    adm.del_card(card_no, function call(){
+		res.send('ok');
+	    });
 	});
 
     //render
     function log(req, res, render){
 	if (req.session && req.session['sta'] === 'yes'){
 	    res.render(render, {title: 'Library', adm_name: req.session.adm_name, layout:'layout'});
+	}else{
+	    res.redirect('/adm/login');
+	};
+    };
+    function auth(req, res){
+	if (req.session && req.session.sta === 'yes'){
+	    return;
 	}else{
 	    res.redirect('/adm/login');
 	};
