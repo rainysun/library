@@ -21,6 +21,8 @@ function search(sel, call){
 
 
     db.query(sql, function(err, results, fields){
+	if(results.length != 0 && results[0]['stock'] === 0){
+	};
 	call(results, fields);
 	//call(sql);
     });

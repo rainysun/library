@@ -59,13 +59,17 @@ module.exports = function(app){
 	
 	adm.card_exist(card_no, function call(check){
 	    if(check === 'no'){
-		res.send('no card');
+		res.send('Not a Card No!');
 	    };
 	    adm.book_stock(book_no, function call(stock){
-		if(stock === 'null'){res.send(null);}
-		if(stock === 0){
+		if(stock === 'null'){
+		    res.send('no such book!');
+		    return;
+		}else if(stock === 0){
 		    adm.get_return_date(book_no, function call(results){
-			res.send(results);
+			res.send('Book ' + results['book_no'] + ' will be reurn at: ' + results['return_date']
+			    + '<br/>' + '<a href="/adm">Back to Adm Panel</a>');
+			return;
 		    });
 		}else{
 		    adm.book_borrowed(book_no);
@@ -74,13 +78,12 @@ module.exports = function(app){
 		    });
 		    var sel = {'book_no': book_no, 'order': 'title'};
 			console.log('record added');
+			res.redirect('/adm/mybooklist/'+card_no)
+		    return;
 		};
 	    });
-	    adm.get_borrowed_books(card_no, function call(results){
-		console.log('get borrowed books');
-		res.render('results', {layout: 'layout', results: results, h1: 'My Book List'});
-		//res.send(results);
-	    });
+	    /*
+	    	    */
 	
 	});
     });
@@ -113,7 +116,7 @@ module.exports = function(app){
 	    auth(req, res);
 	    var info = req.body;
 	    adm.new_card(info, function call(result){
-		res.send('ok' + result.insertId);
+		res.send('Your Card No is: ' + result.insertId + '<br/>' + "<a href='/adm'>Back to Adm Panel</a>");
 	    });
 	});
 	app.get('/adm/del_card', function(req, res){
@@ -124,8 +127,18 @@ module.exports = function(app){
 	    auth(req, res);
 	    var card_no = req.body.card_no;
 	    adm.del_card(card_no, function call(){
-		res.send('ok');
+		res.send('Card ' + card_no + ' Has been Deleted!'+
+		    '<br/>'+'<a href="/adm">Back to Adm Panel</a>');
 	    });
+	});
+	app.get('/adm/mybooklist/:card_no',function(req, res){
+	    var card_no = req.params.card_no;
+	    adm.get_borrowed_books(card_no, function call(results){
+		console.log('get borrowed books');
+		res.render('results', {layout: 'layout', results: results, h1: 'My Book List'});
+		//res.send(results);
+	    });
+
 	});
 
     //render

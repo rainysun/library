@@ -57,7 +57,8 @@ function get_borrowed_books(card_no, call){
 function get_return_date(book_no, call){
     db.query('select * from record where book_no = ' + book_no +
 	' order by return_date limit 1', function(err, results){
-	call(results[0]['return_date']);
+	
+	call(results[0]);
     });
 };
 function new_card(info, call){
